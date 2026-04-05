@@ -21,16 +21,19 @@ public class ExaminerServiceImpl implements ExaminerService {
         Collection<Question> allQuestions = questionService.getAll();
 
         if (amount > allQuestions.size()) {
-            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "Запрошено больше вопросов, чем есть в сервисе" );
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "Запрошено больше вопросов, чем есть в сервисе"
+            );
         }
 
         if (amount <= 0) {
             return Collections.emptyList();
         }
 
-        List<Question> shuffleQuestions = new ArrayList<>(allQuestions);
-        Collections.shuffle(shuffleQuestions);
+        List<Question> shuffledQuestions = new ArrayList<>(allQuestions);
+        Collections.shuffle(shuffledQuestions);
 
-        return new ArrayList<>(shuffleQuestions.subList(0, amount));
+        return new ArrayList<>(shuffledQuestions.subList(0, amount));
     }
 }

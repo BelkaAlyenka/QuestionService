@@ -42,15 +42,17 @@ public class JavaQuestionServiceTest {
     }
 
     @Test
-    public void testRemoveQuestion() {
+    void testRemoveQuestion() {
         Question unnecessaryQuestion = new Question("Вопрос?", "Ответ");
         javaQuestionService.add(unnecessaryQuestion);
 
-        boolean result = javaQuestionService.remove(unnecessaryQuestion);
+        Question removed = javaQuestionService.remove(unnecessaryQuestion);
 
-        assertTrue(result);
+        assertNotNull(removed);
+        assertSame(unnecessaryQuestion, removed);
         assertTrue(javaQuestionService.getAll().isEmpty());
     }
+
 
     @Test
     public void testGetAll() {

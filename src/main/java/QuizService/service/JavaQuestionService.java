@@ -11,19 +11,30 @@ public class JavaQuestionService implements QuestionService {
     private final Set<Question> questions = new HashSet<>();
     private final Random random = new Random();
 
+
     @Override
-    public void add(String question, String answer) {
-        add(new Question(question, answer));
+    public Question add(String questionText, String answerText) {
+        Question newQuestion = new Question(questionText, answerText);
+        questions.add(newQuestion);
+        return newQuestion;
     }
 
     @Override
-    public void add(Question question) {
+    public Question add(Question question) {
+        if (question == null) {
+            throw new IllegalArgumentException("Вопрос не может быть null");
+        }
         questions.add(question);
+        return question;
     }
 
     @Override
-    public boolean remove(Question question) {
-        return questions.remove(question);
+    public Question remove(Question question) {
+        if (questions.remove(question)) {
+            return question;
+        } else {
+            return null;
+        }
     }
 
     @Override
